@@ -1,3 +1,5 @@
+const effects = require('./src/effects');
+
 module.exports = function reduxSagaChai(chai) {
   const { Assertion } = chai;
 
@@ -10,4 +12,6 @@ module.exports = function reduxSagaChai(chai) {
       'expected #{this} not to be an iteration'
     );
   });
+
+  chai.use(effects);
 };

@@ -5,3 +5,5 @@ global.expect = chai.expect;
 chai.should();
 
 chai.use(reduxSagaChai);
+
+global.noop = x => undefined
