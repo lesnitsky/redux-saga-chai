@@ -14,7 +14,7 @@
     "redux-saga": "^0.10.5"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -r test/setup-mocha.js",
+    "test": "./node_modules/.bin/mocha -r test/setup-mocha.js --recursive",
     "precommit": "npm test"
   },
   "author": "Andrei Volchenko <volchenko.andrei@gmail.com>",
