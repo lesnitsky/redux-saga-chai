@@ -1,0 +1,22 @@
+{
+  "name": "redux-saga-chai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "redux-saga-chai.js",
+  "peerDependencies": {
+    "chai": "^3.5.0",
+    "redux-saga": "^0.10.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "husky": "^0.11.4",
+    "mocha": "^2.5.3",
+    "redux-saga": "^0.10.5"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -r test/setup-mocha.js",
+    "precommit": "npm test"
+  },
+  "author": "Andrei Volchenko <volchenko.andrei@gmail.com>",
+  "license": "ISC"
+}
