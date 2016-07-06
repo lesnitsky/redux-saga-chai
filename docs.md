@@ -25,7 +25,7 @@ does not fail if tested object does not have `done` or `value` key.
 const notIterationObject = { value: 42 };
 expect(null).not.to.be.an.iteration;
 expect(undefined).not.to.be.an.iteration;
-expect(42).not.be.an.iteration;
+expect(42).not.to.be.an.iteration;
 expect(notIterationObject).not.to.be.an.iteration;
 notIterationObject.should.not.be.an.iteration;
 ```

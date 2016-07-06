@@ -14,7 +14,7 @@ describe('Iteration assertion', () => {
 
       expect(null).not.to.be.an.iteration;
       expect(undefined).not.to.be.an.iteration;
-      expect(42).not.be.an.iteration;
+      expect(42).not.to.be.an.iteration;
       expect(notIterationObject).not.to.be.an.iteration;
       notIterationObject.should.not.be.an.iteration;
     });
