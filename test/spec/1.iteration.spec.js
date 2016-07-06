@@ -1,15 +1,22 @@
 describe('Iteration assertion', () => {
-  it('should treat { done, value } objects as iterations', () => {
-    const iteration = { done: false, value: null };
+  describe('.be.iteration', () => {
+    it('does not fail if tested object has `done` and `value` keys', () => {
+      const iteration = { done: false, value: null };
 
-    expect(iteration).to.be.an.iteration;
+      expect(iteration).to.be.an.iteration;
+      iteration.should.be.an.iteration;
+    });
   });
 
-  it('should not treat other values as iterations', () => {
-    expect(null).not.to.be.an.iteration;
-    expect(undefined).not.to.be.an.iteration;
-    expect(false).not.to.be.an.iteration;
+  describe('.not.be.iteration', () => {
+    it('does not fail if tested object does not have `done` or `value` key', () => {
+      const notIterationObject = { value: 42 };
 
-    expect({ done: true }).not.to.be.an.iteration;
+      expect(null).not.to.be.an.iteration;
+      expect(undefined).not.to.be.an.iteration;
+      expect(42).not.be.an.iteration;
+      expect(notIterationObject).not.to.be.an.iteration;
+      notIterationObject.should.not.be.an.iteration;
+    });
   });
 });
