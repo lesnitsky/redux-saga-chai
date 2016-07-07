@@ -1,4 +1,5 @@
 const isEffect = require('./is-effect');
+const take = require('./take');
 
 module.exports = function effects(chai) {
   const { Assertion } = chai;
@@ -12,4 +13,6 @@ module.exports = function effects(chai) {
       'expected #{this} not to be an effect'
     );
   });
+
+  chai.use(take);
 }
