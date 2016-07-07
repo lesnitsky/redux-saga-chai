@@ -19,7 +19,7 @@
     "test": "./node_modules/.bin/mocha",
     "precommit": "npm test",
     "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha && opener ./coverage/lcov-report/index.html",
-    "docs": "./node_modules/.bin/mocha --reporter markdown > docs.md"
+    "docs": "./node_modules/.bin/mocha --reporter markdown | ./clean-docs.js > docs.md"
   },
   "author": "Andrei Volchenko <volchenko.andrei@gmail.com>",
   "license": "ISC"
