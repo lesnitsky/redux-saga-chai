@@ -1,4 +1,4 @@
-const isEffect = require('./is-effect');
+const { addProperty, addMethod } = require('./chai-assertion-wrapper');
 const { AssertionError } = require('chai');
 
 function takes(pattern, actionType, negate) {
@@ -30,21 +30,9 @@ function takes(pattern, actionType, negate) {
 module.exports = function take(chai, utils) {
   const { Assertion } = chai;
 
-  Assertion.addProperty('takeEffect', function () {
-    this.assert(
-      isEffect(this._obj, 'take'),
-      'expected #{this} to be "take" effect',
-      'expected #{this} not to be "take" effect'
-    );
-  });
-
-  Assertion.addMethod('take', function (actionType) {
-    new Assertion(this._obj).to.be.iteration;
-
-    const { value } = this._obj;
-    new Assertion(value).to.be.takeEffect;
-
-    const actualPattern = value.TAKE.pattern;
+  addProperty('take');
+  addMethod('take', function (actionType) {
+    const actualPattern = this._obj.value.TAKE.pattern;
 
     if (typeof actionType !== 'string' && !Array.isArray(actionType)) {
       throw new AssertionError(`Unsupported action type`);
