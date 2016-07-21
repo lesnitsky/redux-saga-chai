@@ -1,4 +1,4 @@
-const { addProperty, addMethod } = require('./chai-assertion-wrapper');
+const { addEffectType, addEffectAssertion } = require('./chai-assertion-wrapper');
 const { AssertionError } = require('chai');
 
 function takes(pattern, actionType, negate) {
@@ -30,8 +30,8 @@ function takes(pattern, actionType, negate) {
 module.exports = function take(chai, utils) {
   const { Assertion } = chai;
 
-  addProperty('take');
-  addMethod('take', function (actionType) {
+  addEffectType('take');
+  addEffectAssertion('take', function (actionType) {
     const actualPattern = this._obj.value.TAKE.pattern;
 
     if (typeof actionType !== 'string' && !Array.isArray(actionType)) {

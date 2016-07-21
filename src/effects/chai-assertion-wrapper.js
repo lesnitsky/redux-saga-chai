@@ -1,7 +1,7 @@
 const isEffect = require('./is-effect');
 const { Assertion } = require('chai');
 
-exports.addProperty = function addProperty(type) {
+exports.addEffectType = function addEffectType(type) {
   Assertion.addProperty(`${type}Effect`, function () {
     this.assert(
       isEffect(this._obj, type),
@@ -11,7 +11,7 @@ exports.addProperty = function addProperty(type) {
   });
 }
 
-exports.addMethod = function addMethod(type, asserter) {
+exports.addEffectAssertion = function addEffectAssertion(type, asserter) {
   Assertion.addMethod(type, function () {
     new Assertion(this._obj).to.be.iteration;
 
