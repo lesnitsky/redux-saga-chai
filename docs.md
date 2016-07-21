@@ -17,6 +17,11 @@
        - [.not.be.putEffect](#effects-putaction-notbeputeffect)
        - [.to.put(action)](#effects-putaction-toputaction)
        - [.not.to.put(action)](#effects-putaction-nottoputaction)
+     - [join/cancel(task)](#effects-joincanceltask)
+       - [.be.joinEffect/cancelEffect](#effects-joincanceltask-bejoineffectcanceleffect)
+       - [.not.be.joinEffect/cancelEffect](#effects-joincanceltask-notbejoineffectcanceleffect)
+       - [.to.join/cancel(task)](#effects-joincanceltask-tojoincanceltask)
+       - [.not.to.join/cancel(task)](#effects-joincanceltask-nottojoincanceltask)
 <a name=""></a>
  
 <a name="iteration-assertion"></a>
@@ -258,6 +263,90 @@ const second = gen.next();
 
 expect(first).not.to.put({ type: 'OTHER_ACTION' });
 expect(second).not.to.put({ type: 'OTHER_ACTION' }); // no payload
+```
+
+<a name="effects"></a>
+# Effects
+<a name="effects-joincanceltask"></a>
+## join/cancel(task)
+<a name="effects-joincanceltask-bejoineffectcanceleffect"></a>
+### .be.joinEffect/cancelEffect
+does not fail if tested object is `join/cancel` effect.
+
+```js
+const joinEffect = join(mockTask);
+const cancelEffect = cancel(mockTask);
+
+expect(joinEffect).to.be.joinEffect;
+expect(cancelEffect).to.be.cancelEffect;
+```
+
+<a name="effects-joincanceltask-notbejoineffectcanceleffect"></a>
+### .not.be.joinEffect/cancelEffect
+does not fail if tested object is not `join/cancel` effect.
+
+```js
+const invalidEffect = take('ACTION');
+
+expect(null).not.to.be.an.joinEffect;
+expect(undefined).not.to.be.an.joinEffect;
+expect(42).not.to.be.an.joinEffect;
+expect(invalidEffect).not.to.be.an.joinEffect;
+
+invalidEffect.should.not.be.an.joinEffect;
+
+expect(null).not.to.be.an.cancelEffect;
+expect(undefined).not.to.be.an.cancelEffect;
+expect(42).not.to.be.an.cancelEffect;
+expect(invalidEffect).not.to.be.an.cancelEffect;
+
+invalidEffect.should.not.be.an.cancelEffect;
+```
+
+<a name="effects-joincanceltask-tojoincanceltask"></a>
+### .to.join/cancel(task)
+does not fail if tested object is `join/cancel` effect with correct task yielded from generator.
+
+```js
+function* testSaga() {
+  yield join(mockTask);
+  yield cancel(otherMockTask);
+  // docs-ignore-start
+  yield join(otherMockTask);
+  yield cancel(mockTask);
+  // docs-ignore-end
+}
+
+const gen = testSaga();
+const first = gen.next();
+const second = gen.next();
+
+expect(first).to.join(mockTask);
+expect(second).to.cancel(otherMockTask);
+```
+
+<a name="effects-joincanceltask-nottojoincanceltask"></a>
+### .not.to.join/cancel(task)
+does not fail if tested object is `join/cancel` effect with incorrect task.
+
+```js
+function* testSaga() {
+  yield join(otherMockTask);
+  yield join(mockTask);
+  yield cancel(otherMockTask);
+  yield cancel(mockTask);
+}
+
+const gen = testSaga();
+const first = gen.next();
+const second = gen.next();
+const third = gen.next();
+const fourth = gen.next();
+
+expect(first).not.to.join(mockTask);
+expect(second).not.to.join(otherMockTask);
+expect(third).not.to.cancel(mockTask);
+expect(fourth).not.to.cancel(otherMockTask);
 ```
 
 
