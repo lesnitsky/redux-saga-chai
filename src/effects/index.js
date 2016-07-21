@@ -1,5 +1,6 @@
 const isEffect = require('./is-effect');
 const take = require('./take');
+const put = require('./put');
 
 module.exports = function effects(chai) {
   const { Assertion } = chai;
@@ -15,4 +16,5 @@ module.exports = function effects(chai) {
   });
 
   chai.use(take);
+  chai.use(put);
 }

@@ -12,6 +12,11 @@
        - [.not.be.takeEffect](#effects-takepatterntakempattern-notbetakeeffect)
        - [.to.take(pattern)](#effects-takepatterntakempattern-totakepattern)
        - [.not.to.take(pattern)](#effects-takepatterntakempattern-nottotakepattern)
+     - [put(action)](#effects-putaction)
+       - [.be.putEffect](#effects-putaction-beputeffect)
+       - [.not.be.putEffect](#effects-putaction-notbeputeffect)
+       - [.to.put(action)](#effects-putaction-toputaction)
+       - [.not.to.put(action)](#effects-putaction-nottoputaction)
 <a name=""></a>
  
 <a name="iteration-assertion"></a>
@@ -187,6 +192,72 @@ second.should.not.take(['FOO', 'BAR', 'BAZ']);
 
 expect(third).not.to.take('NOT_IMPORTANT_ACTION');
 third.should.not.take('NOT_IMPORTANT_ACTION');
+```
+
+<a name="effects"></a>
+# Effects
+<a name="effects-putaction"></a>
+## put(action)
+<a name="effects-putaction-beputeffect"></a>
+### .be.putEffect
+does not fail if tested object is `put` effect.
+
+```js
+const effect = put({ type: 'ACTION' });
+
+expect(effect).to.be.putEffect;
+effect.should.be.putEffect;
+```
+
+<a name="effects-putaction-notbeputeffect"></a>
+### .not.be.putEffect
+does not fail if tested object is not `put` effect.
+
+```js
+const notPutEffectObject = take('ACTION');
+
+expect(null).not.to.be.an.putEffect;
+expect(undefined).not.to.be.an.putEffect;
+expect(42).not.to.be.an.putEffect;
+expect(notPutEffectObject).not.to.be.an.putEffect;
+
+notPutEffectObject.should.not.be.an.putEffect;
+```
+
+<a name="effects-putaction-toputaction"></a>
+### .to.put(action)
+does not fail if tested object is `put` effect with correct action yielded from generator.
+
+```js
+function* testSaga() {
+  yield put({ type: 'ACTION' });
+  yield put({ type: 'ACTION', payload: 42 });
+}
+
+const gen = testSaga();
+const first = gen.next();
+const second = gen.next();
+
+expect(first).to.put({ type: 'ACTION' });
+expect(second).to.put({ type: 'ACTION', payload: 42 });
+```
+
+<a name="effects-putaction-nottoputaction"></a>
+### .not.to.put(action)
+does not fail if tested object is `put` effect with incorrect action.
+
+```js
+function* testSaga() {
+  yield put({ type: 'ACTION' });
+  yield put({ type: 'OTHER_ACTION', payload: 42 });
+}
+
+const gen = testSaga();
+const first = gen.next();
+const second = gen.next();
+
+expect(first).not.to.put({ type: 'OTHER_ACTION' });
+expect(second).not.to.put({ type: 'OTHER_ACTION' }); // no payload
 ```
 
 
