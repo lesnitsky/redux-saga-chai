@@ -16,7 +16,7 @@ chai.use(reduxSagaChai);
 ```
 
 ### Docs
-You can find complete docs [here](https://github.com/R1ZZU/redux-saga-chai/blob/master/docs.md)
+You can find complete docs [here](https://github.com/R1ZZU/redux-saga-chai/blob/master/docs.md#toc)
 
 ### Example
 ```js
