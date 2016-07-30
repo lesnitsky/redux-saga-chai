@@ -22,6 +22,13 @@
        - [.not.be.joinEffect/cancelEffect](#effects-joincanceltask-notbejoineffectcanceleffect)
        - [.to.join/cancel(task)](#effects-joincanceltask-tojoincanceltask)
        - [.not.to.join/cancel(task)](#effects-joincanceltask-nottojoincanceltask)
+     - [select(pattern)](#effects-selectpattern)
+       - [.be.selectEffect](#effects-selectpattern-beselecteffect)
+       - [.not.be.selectEffect](#effects-selectpattern-notbeselecteffect)
+       - [.to.select(selector)](#effects-selectpattern-toselectselector)
+       - [.not.to.select(selector)](#effects-selectpattern-nottoselectselector)
+       - [.to.select(selector).withArgs(...args)](#effects-selectpattern-toselectselectorwithargsargs)
+       - [.to.select(selector).withoutArgs(..args)](#effects-selectpattern-toselectselectorwithoutargsargs)
 <a name=""></a>
  
 <a name="iteration-assertion"></a>
@@ -347,6 +354,101 @@ expect(first).not.to.join(mockTask);
 expect(second).not.to.join(otherMockTask);
 expect(third).not.to.cancel(mockTask);
 expect(fourth).not.to.cancel(otherMockTask);
+```
+
+<a name="effects"></a>
+# Effects
+<a name="effects-selectpattern"></a>
+## select(pattern)
+<a name="effects-selectpattern-beselecteffect"></a>
+### .be.selectEffect
+does not fail if tested object is `select` effect.
+
+```js
+const effect = select(noop);
+expect(effect).to.be.selectEffect;
+```
+
+<a name="effects-selectpattern-notbeselecteffect"></a>
+### .not.be.selectEffect
+does not fail if tested object is not `select` effect.
+
+```js
+const notTakeEffectObject = put({ type: 'ACTION' });
+
+expect(null).not.to.be.an.selectEffect;
+expect(undefined).not.to.be.an.selectEffect;
+expect(42).not.to.be.an.selectEffect;
+expect(notTakeEffectObject).not.to.be.an.selectEffect;
+```
+
+<a name="effects-selectpattern-toselectselector"></a>
+### .to.select(selector)
+does not fail if tested object is `select` effect yielded from generator.
+
+```js
+function* testSaga() {
+  yield select(noop);
+}
+const next = testSaga().next();
+expect(next).to.select(noop);
+// dpcs-ingore-start
+expect(() => {
+  expect(next).to.select(x => x);
+}).to.throw(AssertionError);
+```
+
+<a name="effects-selectpattern-nottoselectselector"></a>
+### .not.to.select(selector)
+does not fail if tested object is `select` effect with wrong selector.
+
+```js
+const selector = state => state.prop;
+
+function* testSaga() {
+  yield select(selector);
+}
+const next = testSaga().next();
+expect(next).not.to.select(noop);
+```
+
+<a name="effects-selectpattern-toselectselectorwithargsargs"></a>
+### .to.select(selector).withArgs(...args)
+does not fail if tested object is `select` effect and it was with called with correct arguments.
+
+```js
+function* testSaga() {
+  yield select(noop, 1);
+  yield select(noop, 1, 2);
+  yield select(noop, 1, 2, 3);
+}
+
+const gen = testSaga();
+const steps = [];
+let next = gen.next();
+
+while (!next.done) {
+  steps.push(next);
+  next = gen.next();
+}
+
+expect(steps[0]).to.select(noop).withArgs(1);
+expect(steps[1]).to.select(noop).withArgs(1, 2);
+expect(steps[2]).to.select(noop).withArgs(1, 2, 3);
+```
+
+<a name="effects-selectpattern-toselectselectorwithoutargsargs"></a>
+### .to.select(selector).withoutArgs(..args)
+does not fail if tested object is `select` effect and it was called without args.
+
+```js
+function* testSaga() {
+  yield select(noop);
+}
+
+const next = testSaga().next();
+
+expect(next).to.select(noop).withoutArgs();
 ```
 
 
