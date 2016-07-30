@@ -2,6 +2,7 @@ const isEffect = require('./is-effect');
 const take = require('./take');
 const put = require('./put');
 const joinAndCancel = require('./join-cancel');
+const select = require('./select');
 
 module.exports = function effects(chai) {
   const { Assertion } = chai;
@@ -19,4 +20,5 @@ module.exports = function effects(chai) {
   chai.use(take);
   chai.use(put);
   chai.use(joinAndCancel);
+  chai.use(select);
 }
