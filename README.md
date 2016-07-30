@@ -1,10 +1,10 @@
-# Chai assertions for redux-saga
+# Chai assertions for redux-saga (WIP)
 
 `redux-saga-chai` extends [Chai](http://chaijs.com/) and allows you to be more verbose while testing sagas
 
 ### Installation
 ```sh
-npm i redux-saga-chai --save-dev
+npm i r1zzu/redux-saga-chai --save-dev
 ```
 
 ### Usage
