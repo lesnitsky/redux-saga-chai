@@ -1,4 +1,4 @@
-# Chai assertions for redux-saga (WIP)
+# Chai assertions for redux-saga (WIP) [![Build Status](https://travis-ci.org/R1ZZU/redux-saga-chai.svg?branch=master)](https://travis-ci.org/R1ZZU/redux-saga-chai)
 
 `redux-saga-chai` extends [Chai](http://chaijs.com/) and allows you to be more verbose while testing sagas
 
