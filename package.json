@@ -9,9 +9,11 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.12",
     "husky": "^0.11.4",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
+    "mocha-lcov-reporter": "^1.2.0",
     "opener": "^1.4.1",
     "redux-saga": "^0.10.5"
   },
@@ -19,8 +21,13 @@
     "test": "./node_modules/.bin/mocha",
     "precommit": "npm test",
     "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha && opener ./coverage/lcov-report/index.html",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "docs": "./node_modules/.bin/mocha --reporter markdown | ./clean-docs.js > docs.md"
   },
   "author": "Andrei Volchenko <volchenko.andrei@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/R1ZZU/redux-saga-chai.git"
+  }
 }
