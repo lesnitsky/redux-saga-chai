@@ -24,6 +24,12 @@
     "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "docs": "./node_modules/.bin/mocha --reporter markdown | ./clean-docs.js > docs.md"
   },
+  "keywords": [
+    "chai",
+    "chai-plugin",
+    "redux",
+    "redux-saga"
+  ],
   "author": "Andrei Volchenko <volchenko.andrei@gmail.com>",
   "license": "ISC",
   "repository": {
