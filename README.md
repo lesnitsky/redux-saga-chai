@@ -1,8 +1,9 @@
-# Chai assertions for redux-saga (WIP)
+# Chai assertions for redux-saga (WIP) [Completion status](https://github.com/R1ZZU/redux-saga-chai/issues/3)
 [![Build Status](https://travis-ci.org/R1ZZU/redux-saga-chai.svg?branch=master)](https://travis-ci.org/R1ZZU/redux-saga-chai)
 [![Coverage Status](https://coveralls.io/repos/github/R1ZZU/redux-saga-chai/badge.svg?branch=master)](https://coveralls.io/github/R1ZZU/redux-saga-chai?branch=master)
 
 `redux-saga-chai` extends [Chai](http://chaijs.com/) and allows you to be more verbose while testing sagas
+
 
 ### Installation
 ```sh
